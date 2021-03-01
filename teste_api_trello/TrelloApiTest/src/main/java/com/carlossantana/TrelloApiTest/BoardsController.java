@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BoardsController {
+public class BoardsController{
+
     User user = new User();
+    
+
     @GetMapping("/all-boards")
     public String getAllBoards(){
 
@@ -21,6 +24,7 @@ public class BoardsController {
 
         return response.getBody().toPrettyString();
     }
+
     @GetMapping("/get-board")
     public String getSpecificBoard(){
 

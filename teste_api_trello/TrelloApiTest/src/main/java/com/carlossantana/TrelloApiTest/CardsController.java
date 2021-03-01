@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CardsController {
+
     User user = new User();
+
     @GetMapping("/get-cards-from-list")
     public String getCardsFromList(){
 
