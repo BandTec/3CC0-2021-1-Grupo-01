@@ -1,9 +1,9 @@
-package com.carlossantana.TrelloApiTest;
+package com.carlossantana.TrelloApiTest.controllers;
 
+import com.carlossantana.TrelloApiTest.models.User;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import kong.unirest.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,5 +1,6 @@
-package com.carlossantana.TrelloApiTest;
+package com.carlossantana.TrelloApiTest.controllers;
 
+import com.carlossantana.TrelloApiTest.models.User;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
