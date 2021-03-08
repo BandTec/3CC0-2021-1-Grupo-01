@@ -8,28 +8,28 @@ public class User {
     private String username;
     private String fullName;
     private String email;
-//    private String senha;
+    private String senha;
     private List<Object> idBoards;
-    private String key = "fafa203c2eb7040d43c24ad7ca66ba32";
-    private String token = "9156f73352b670b11ad66b6321f9a0833bd1daf8351859ef497fe13a8b2bb3ad";
+    private String key;
+    private String token;
 
-    public User(String key, String token) {
-        this.key = key;
-        this.token = token;
-    }
-
-    //Tentativa de login
-//    public User(String id, String username, String fullName, String email, String senha) {
-//        this.id = id;
-//        this.username = username;
-//        this.fullName = fullName;
-//        this.email = email;
-//        this.senha = senha;
+//    public User(String key, String token) {
+//        this.key = key;
+//        this.token = token;
 //    }
 
-//    public String getSenha() { return senha; }
-//
-//    public void setSenha(String senha) { this.senha = senha; }
+    //Tentativa de login
+    public User(String id, String username, String fullName, String email, String senha) {
+        this.id = id;
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public String getSenha() { return senha; }
+
+    public void setSenha(String senha) { this.senha = senha; }
 
     public String getFullName() {
         return fullName;

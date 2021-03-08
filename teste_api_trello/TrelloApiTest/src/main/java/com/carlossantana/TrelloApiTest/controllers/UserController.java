@@ -29,23 +29,25 @@ public class UserController {
 //    }
 
     public UserController() {
-        userList.add(new User("123", "312"));
-        userList.add(new User("312", "54353"));
-        userList.add(new User("2222", "111111"));
+//        userList.add(new User("123", "312"));
+//        userList.add(new User("312", "54353"));
+//        userList.add(new User("2222", "111111"));
         //Tentativa de um login
-//        userList.add(new User("1239120", "vicentin123", "Victor Vicente",
-//                "123", "321"));
+        userList.add(new User("1239120", "vicentin123", "Victor Vicente",
+                "123", "321"));
+        userList.add(new User("128939", "carlos1234", "Carlos Santana",
+                "carlos@123.com", "12345"));
     }
 
-    @PostMapping("/login")
-    public String userLogin(@RequestBody User user) {
-        loggedUser = user;
-        userList.add(loggedUser);
-
-        userService.getBoardMemberships(loggedUser);
-        userService.getUserInfo(loggedUser);
-        return "usuário logado " + loggedUser;
-    }
+//    @PostMapping("/login")
+//    public String userLogin(@RequestBody User user) {
+//        loggedUser = user;
+//        userList.add(loggedUser);
+//
+//        userService.getBoardMemberships(loggedUser);
+//        userService.getUserInfo(loggedUser);
+//        return "usuário logado " + loggedUser;
+//    }
     
     @GetMapping("/logout")
     public String logoutUser() {
@@ -61,15 +63,15 @@ public class UserController {
 /*************************************************************************/
 
     //Tentativa de login
-//    @GetMapping("/login")
-//    public String getUser(@RequestBody User user) {
-//        loggedUser = userService.getLoggedUser(user, userList);
-//        return userService.checkUser(user, userList);
-//    }
-//
-//    @GetMapping("/logged")
-//    public User getLoggedUser() {
-//        return loggedUser;
-//    }
+    @GetMapping("/login")
+    public String getUser(@RequestBody User user) {
+        loggedUser = userService.getLoggedUser(user, userList);
+        return userService.checkUser(user, userList);
+    }
+
+    @GetMapping("/logged")
+    public User getLoggedUser() {
+        return loggedUser;
+    }
 
 }

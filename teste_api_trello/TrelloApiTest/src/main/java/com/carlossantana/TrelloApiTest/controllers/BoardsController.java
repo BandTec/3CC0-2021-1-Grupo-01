@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BoardsController{
 
-    User user = new User();
-//    User user = new User("1239120", "vicentin123", "Victor Vicente",
-//            "123", "321");
+//    User user = new User();
+    User user = new User("1239120", "vicentin123", "Victor Vicente",
+            "123", "321");
     
 
     @GetMapping("/all-boards")
