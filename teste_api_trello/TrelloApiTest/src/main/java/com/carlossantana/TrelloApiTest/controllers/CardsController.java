@@ -45,4 +45,9 @@ public class CardsController {
 
         return response.getBody().toPrettyString();
     }
+
+//    @GetMapping("/all-cards")
+//    public String getAllCards() {
+//
+//    }
 }

@@ -10,8 +10,8 @@ public class User {
     private String email;
     private String senha;
     private List<Object> idBoards;
-    private String key;
-    private String token;
+    private String key = "fafa203c2eb7040d43c24ad7ca66ba32";
+    private String token = "9156f73352b670b11ad66b6321f9a0833bd1daf8351859ef497fe13a8b2bb3ad";
 
 //    public User(String key, String token) {
 //        this.key = key;

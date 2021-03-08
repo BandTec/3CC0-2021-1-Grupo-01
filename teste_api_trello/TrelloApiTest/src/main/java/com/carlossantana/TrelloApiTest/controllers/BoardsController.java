@@ -13,6 +13,8 @@ public class BoardsController{
 //    User user = new User();
     User user = new User("1239120", "vicentin123", "Victor Vicente",
             "123", "321");
+
+    String boardId = AppConfig.idBoardMonitored;
     
 
     @GetMapping("/all-boards")
@@ -31,7 +33,6 @@ public class BoardsController{
     @GetMapping("/get-board")
     public String getSpecificBoard(){
 
-        String boardId = "60288ce3900bf67ecd4c4583";
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/" + boardId)
                 .queryString("key", user.getKey())

@@ -54,6 +54,8 @@ public class UserService {
     //        loggedUser.setIdBoards((List<Object>) response.getBody().getArray().getJSONObject(0).get("idBoards"));
     }
 
+
+
     //Tentativa de um login
 
     public String checkUser(User user, List<User> listUser) {

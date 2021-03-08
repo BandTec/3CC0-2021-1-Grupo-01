@@ -14,10 +14,11 @@ public class ActionsController {
     User user = new User("1239120", "vicentin123", "Victor Vicente",
             "123", "321");
 
+    String boardId = AppConfig.idBoardMonitored;
+
 
     @GetMapping("/all-actions-of-board")
     public String getAllActionsBoard(){
-        String boardId = "60288ce3900bf67ecd4c4583";
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/" + boardId + "/actions")
                 .queryString("key", user.getKey())
@@ -31,7 +32,6 @@ public class ActionsController {
 
     @GetMapping("/last-action-of-board")
     public String getLastActionsBoard(){
-        String boardId = "60288ce3900bf67ecd4c4583";
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/" + boardId + "/actions")
                 .queryString("key", user.getKey())

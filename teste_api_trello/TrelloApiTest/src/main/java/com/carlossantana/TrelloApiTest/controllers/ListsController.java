@@ -12,11 +12,11 @@ public class ListsController {
     User user = new User("1239120", "vicentin123", "Victor Vicente",
             "123", "321");
 
+    String boardId  = AppConfig.idBoardMonitored;
+
 
     @GetMapping("/get-lists-from-board")
     public String getListsFromBoard(){
-
-        String boardId = "60288ce3900bf67ecd4c4583";
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/" + boardId + "/lists")
                 .queryString("key", user.getKey())
