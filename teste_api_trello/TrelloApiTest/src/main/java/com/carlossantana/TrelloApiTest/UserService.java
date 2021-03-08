@@ -53,4 +53,28 @@ public class UserService {
         loggedUser.setEmail((String) response.getBody().getArray().getJSONObject(0).get("email"));
     //        loggedUser.setIdBoards((List<Object>) response.getBody().getArray().getJSONObject(0).get("idBoards"));
     }
+
+    //Tentativa de um login
+
+//    public String checkUser(User user, List<User> listUser) {
+//        String message = null;
+//        for (User userList : listUser) {
+//            if (user.getEmail().equals(userList.getEmail()) && user.getSenha().equals(userList.getSenha())) {
+//                message = "Usuário logado com sucesso!";
+//                break;
+//            }else{ message = "Usuário não encontrado!"; }
+//        }
+//        return message;
+//    }
+//
+//    public User getLoggedUser(User user, List<User> listUser) {
+//        User userLogged = null;
+//        for (User userList : listUser) {
+//            if (user.getEmail().equals(userList.getEmail()) && user.getSenha().equals(userList.getSenha())) {
+//                userLogged = userList;
+//                break;
+//            }else{ userLogged = null;}
+//        }
+//        return userLogged;
+//    }
 }

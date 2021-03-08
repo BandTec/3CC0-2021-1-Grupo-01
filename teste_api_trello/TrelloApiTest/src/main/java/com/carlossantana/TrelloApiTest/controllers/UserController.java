@@ -24,14 +24,17 @@ public class UserController {
     static public List<User> getUserList(){
         return userList;
     }
-    public User getLoggedUser(){
-        return loggedUser;
-    }
+//    public User getLoggedUser(){
+//        return loggedUser;
+//    }
 
     public UserController() {
         userList.add(new User("123", "312"));
         userList.add(new User("312", "54353"));
         userList.add(new User("2222", "111111"));
+        //Tentativa de um login
+//        userList.add(new User("1239120", "vicentin123", "Victor Vicente",
+//                "123", "321"));
     }
 
     @PostMapping("/login")
@@ -54,4 +57,19 @@ public class UserController {
     public List<User> getAllUsers() {
         return userList;
     }
+
+/*************************************************************************/
+
+    //Tentativa de login
+//    @GetMapping("/login")
+//    public String getUser(@RequestBody User user) {
+//        loggedUser = userService.getLoggedUser(user, userList);
+//        return userService.checkUser(user, userList);
+//    }
+//
+//    @GetMapping("/logged")
+//    public User getLoggedUser() {
+//        return loggedUser;
+//    }
+
 }
