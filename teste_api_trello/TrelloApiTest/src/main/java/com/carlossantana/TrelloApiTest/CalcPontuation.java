@@ -81,27 +81,37 @@ public class CalcPontuation {
     }
 
 
-
     public Double verifyParameters(JSONArray jsonArray){
 
-        jsonArray.forEach(cardJson -> {
+        for (Object cardJson : jsonArray) {
             JSONObject json = (JSONObject) cardJson;
 
             //verificar tipo do action
             if (json.getJSONObject("data").getJSONObject("board").get("id").equals(boardId)
-                    && json.get("type").equals("updateCard")){
+                    && json.get("type").equals("updateCard")) {
 
 //                System.out.println(json.getJSONObject("data").getJSONObject("card").get("id"));
                 JSONArray completeCard = getCardInfo((String) json.getJSONObject("data").getJSONObject("card").get("id"));
                 System.out.println(completeCard);
 
-                completeCard.forEach(p -> {
-                    JSONObject label = (JSONObject) p;
-                });
+                for (Object p : completeCard) {
+                    JSONObject pObject = (JSONObject) p;
+                    System.out.println(pObject.getJSONArray("labels").getJSONObject(2).get("name"));
 
+                    pObject.getJSONArray("labels").forEach(label -> {
+                        JSONObject labelObject = (JSONObject) label;
+                        System.out.println(labelObject.get("name"));
+
+                        if(labelObject.get("name").equals("Dificil") && labelObject.get("color").equals("red")){
+
+                        }
+
+
+                        System.out.println(labelObject.get("color"));
+                    });
+                }
             }
-
-        });
+        }
 
 
         return 0.0;
