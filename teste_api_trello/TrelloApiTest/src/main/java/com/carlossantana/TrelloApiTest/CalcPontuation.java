@@ -1,24 +1,25 @@
 package com.carlossantana.TrelloApiTest;
 
 import com.carlossantana.TrelloApiTest.controllers.AppConfig;
+import com.carlossantana.TrelloApiTest.models.Developer;
+import com.carlossantana.TrelloApiTest.models.Manager;
 import com.carlossantana.TrelloApiTest.models.Task;
 import com.carlossantana.TrelloApiTest.models.User;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.gson.JsonArray;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalcPontuation {
 
-    User user = new User("60288b1a7a611413aebb1ee4", "vicentin123", "Victor Vicente",
+    User dev = new Developer("60288b1a7a611413aebb1ee4", "vicentin123", "Victor Vicente",
             "123", "321");
+    User manager = new Manager("60288b1a7a611413aebb1ee4", "calinSantana", "Carlos Santana",
+            "345", "453");
 
     String boardId = AppConfig.idBoardMonitored;
 
@@ -27,8 +28,8 @@ public class CalcPontuation {
 
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/"+ boardId +"/cards")
-                .queryString("key",  user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key",  dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
 //        System.out.println(response.getBody().getArray().getJSONObject(0).get("id"));
@@ -38,9 +39,9 @@ public class CalcPontuation {
 
     public void getUserCards(){
 
-        HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/members/" + user.getId() + "/cards")
-                .queryString("key",  user.getKey())
-                .queryString("token", user.getToken())
+        HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/members/" + dev.getId() + "/cards")
+                .queryString("key",  dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
         List<JSONObject> cardList = new ArrayList<>();
@@ -63,8 +64,8 @@ public class CalcPontuation {
     public JSONArray getLastAction(){
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/members/me/actions")
-                .queryString("key", user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key", dev.getKey())
+                .queryString("token", dev.getToken())
                 .queryString("limit", 1)
                 .asJson();
 
@@ -74,15 +75,15 @@ public class CalcPontuation {
     public JSONArray getCardInfo(String idCard){
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/cards/" + idCard)
-                .queryString("key", user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key", dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
 //        System.out.println(response.getBody().getArray());
         return response.getBody().getArray();
     }
 
-    public Double createTasks(JSONArray jsonArray){
+    public void createTasks(JSONArray jsonArray){
         JSONArray arrayTasks = new JSONArray();
 
         jsonArray.forEach(json-> {
@@ -92,7 +93,7 @@ public class CalcPontuation {
 
             Task task = new Task(
                     (String) jsonCard.get("id"),
-                    calculatePontuation(jsonCard),
+                    dev.getTaskPontuation(jsonCard),
                     false,
                     null
             );
@@ -129,71 +130,13 @@ public class CalcPontuation {
 //                }
 //            }
 //        }
-        return 0.0;
-    }
-
-    public Double calculatePontuation(JSONObject jsonCard) {
-        Integer urgencyAxis = 0;
-        Integer difficultyAxis = 0;
-        Double totalPoints = 0.0;
-
-        Double[][] matrizCalc= {
-                {10.0,12.5,15.0,17.5},
-                {12.5, 15.0, 17.5, 20.0},
-                {15.0,17.5,20.0,22.5},
-                {17.5,20.0,22.5,25.0}
-        };
-
-//        System.out.println(jsonCard);
-        //Verificar labels
-        if (!jsonCard.getJSONArray("labels").isEmpty()){
-
-            for (Object label : jsonCard.getJSONArray("labels")) {
-                JSONObject labelJson = (JSONObject) label;
-
-                //TODO: Implementar verificação para que não seja possível adicionar mais de uma label a um mesmo card
-                if (labelJson.get("name").equals("Alta Urgência")
-                        && labelJson.get("color").equals("red")) {
-                    urgencyAxis = 3;
-                } else if (labelJson.get("name").equals("Expert")
-                        && labelJson.get("color").equals("red")){
-                    difficultyAxis = 3;
-                } else if (labelJson.get("name").equals("Urgente")
-                        && labelJson.get("color").equals("orange")) {
-                    urgencyAxis = 2;
-                } else if (labelJson.get("name").equals("Difícil")
-                        && labelJson.get("color").equals("orange")){
-                    difficultyAxis = 2;
-                } else if (labelJson.get("name").equals("Média Urgência")
-                        && labelJson.get("color").equals("yellow")) {
-                    urgencyAxis = 1;
-                } else if (labelJson.get("name").equals("Médio")
-                        && labelJson.get("color").equals("yellow")){
-                    difficultyAxis = 1;
-                } else if (labelJson.get("name").equals("Pouca Urgência")
-                        && labelJson.get("color").equals("green")) {
-                    urgencyAxis = 0;
-                } else if (labelJson.get("name").equals("Fácil")
-                        && labelJson.get("color").equals("green")){
-                    difficultyAxis = 0;
-                }
-            }
-        }
-
-        //Prazo Cumprido ou não
-        Double timeBonusValue = jsonCard.get("dueComplete").equals(true) ? 1.5 : 0.5;
-
-        //TODO: Implementar verificação da qtd de vezes em q uma tarefa foi refeita
-
-        System.out.println(matrizCalc[urgencyAxis][difficultyAxis] * timeBonusValue);
-        return matrizCalc[urgencyAxis][difficultyAxis] * timeBonusValue;
     }
 
     public JSONArray getCardsFromDoneList(){
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/list/" + AppConfig.idListDone + "/cards")
-                .queryString("key", user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key", dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
 //        System.out.println(response.getBody().getArray());
@@ -206,7 +149,7 @@ public class CalcPontuation {
 
         calc.getCardsFromDoneList();
         calc.createTasks(calc.getCardsFromDoneList());
-
+        manager.;
 
     }
 }

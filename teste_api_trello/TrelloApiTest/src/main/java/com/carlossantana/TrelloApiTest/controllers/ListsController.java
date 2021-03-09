@@ -1,5 +1,6 @@
 package com.carlossantana.TrelloApiTest.controllers;
 
+import com.carlossantana.TrelloApiTest.models.Developer;
 import com.carlossantana.TrelloApiTest.models.User;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ListsController {
 
 //    User user = new User();
-    User user = new User("1239120", "vicentin123", "Victor Vicente",
+    User dev = new Developer("1239120", "vicentin123", "Victor Vicente",
             "123", "321");
 
     String boardId  = AppConfig.idBoardMonitored;
@@ -19,8 +20,8 @@ public class ListsController {
     public String getListsFromBoard(){
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/boards/" + boardId + "/lists")
-                .queryString("key", user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key", dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
         System.out.println(response.getBody().toPrettyString());
@@ -34,8 +35,8 @@ public class ListsController {
         String listId = "60288ce3900bf67ecd4c4584";
 
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/lists/" + listId)
-                .queryString("key", user.getKey())
-                .queryString("token", user.getToken())
+                .queryString("key", dev.getKey())
+                .queryString("token", dev.getToken())
                 .asJson();
 
         System.out.println(response.getBody().toPrettyString());

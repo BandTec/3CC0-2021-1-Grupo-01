@@ -1,8 +1,10 @@
 package com.carlossantana.TrelloApiTest.models;
 
+import kong.unirest.json.JSONObject;
+
 import java.util.List;
 
-public class User {
+public abstract class User {
 
     private String id;
     private String username;
@@ -10,6 +12,7 @@ public class User {
     private String email;
     private String senha;
     private List<Object> idBoards;
+    private Integer humor;
     private String key = "fafa203c2eb7040d43c24ad7ca66ba32";
     private String token = "9156f73352b670b11ad66b6321f9a0833bd1daf8351859ef497fe13a8b2bb3ad";
 
@@ -27,6 +30,9 @@ public class User {
         this.senha = senha;
     }
 
+    public abstract Double getTaskPontuation(JSONObject jsonCard);
+
+    //Getter e Setter
     public String getSenha() { return senha; }
 
     public void setSenha(String senha) { this.senha = senha; }
