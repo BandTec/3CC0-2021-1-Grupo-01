@@ -84,7 +84,7 @@ public class CalcPontuation {
     }
 
     public void createTasks(JSONArray jsonArray){
-        JSONArray arrayTasks = new JSONArray();
+//        JSONArray arrayTasks = new JSONArray();
 
         jsonArray.forEach(json-> {
             JSONObject jsonCard = (JSONObject) json;
@@ -143,13 +143,17 @@ public class CalcPontuation {
         return response.getBody().getArray();
     }
 
+
     public static void main(String[] args) {
         CalcPontuation calc = new CalcPontuation();
 //        calc.verifyParameters(calc.getLastAction());
 
+        User dev = new Developer("60288b1a7a611413aebb1ee4", "vicentin123", "Victor Vicente",
+                "123", "321");
+
         calc.getCardsFromDoneList();
         calc.createTasks(calc.getCardsFromDoneList());
-        manager.;
+//        dev.getTaskPontuation(calc.getCardsFromDoneList());
 
     }
 }
