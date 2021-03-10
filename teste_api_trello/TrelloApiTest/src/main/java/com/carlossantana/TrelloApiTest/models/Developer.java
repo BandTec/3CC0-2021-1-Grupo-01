@@ -60,7 +60,6 @@ public class Developer extends User{
 
         //TODO: Implementar verificação da qtd de vezes em q uma tarefa foi refeita
 
-        System.out.println(matrizCalc[urgencyAxis][difficultyAxis] * timeBonusValue);
         return matrizCalc[urgencyAxis][difficultyAxis] * timeBonusValue;
     }
 }

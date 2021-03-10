@@ -59,7 +59,7 @@ public class Manager extends User{
                 }
             }
         }
-        return 0.0;
+        return matrizCalc[urgencyAxis][difficultyAxis];
     }
 
 }

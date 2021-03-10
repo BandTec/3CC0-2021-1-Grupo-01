@@ -3,10 +3,14 @@ package com.carlossantana.TrelloApiTest.controllers;
 import com.carlossantana.TrelloApiTest.CalcPontuation;
 import com.carlossantana.TrelloApiTest.UserService;
 import com.carlossantana.TrelloApiTest.models.Developer;
+import com.carlossantana.TrelloApiTest.models.Manager;
+import com.carlossantana.TrelloApiTest.models.Task;
 import com.carlossantana.TrelloApiTest.models.User;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +46,7 @@ public class UserController {
         //Tentativa de um login
         userList.add(new Developer("1239120", "vicentin123", "Victor Vicente",
                 "123", "321"));
-        userList.add(new Developer("128939", "carlos1234", "Carlos Santana",
+        userList.add(new Manager("128939", "carlos1234", "Carlos Santana",
                 "carlos@123.com", "12345"));
     }
 
@@ -89,7 +93,19 @@ public class UserController {
                 .queryString("token", loggedUser.getToken())
                 .asJson();
 
-        return response.getBody().getArray().getJSONObject("labels");
+        List<Double> cards = new ArrayList<>();
+        for (Object json : response.getBody().getArray()) {
+            JSONObject jsonCard = (JSONObject) json;
+            cards.add(loggedUser.getTaskPontuation(jsonCard));
+        }
+
+        Double pontuation = 0.0;
+
+        for (Double points : cards) {
+            pontuation += points;
+        }
+
+        return "Pontuação esperada pelas tarefas já concluidas: " + pontuation;
 
     }
 }
