@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @GetMapping("/points")
-    public String getLastTaskPoint() {
+    public String getPontuationFromDoneList() {
         HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/list/" + AppConfig.idListDone + "/cards")
                 .queryString("key", loggedUser.getKey())
                 .queryString("token", loggedUser.getToken())
