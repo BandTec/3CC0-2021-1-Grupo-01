@@ -1,8 +1,12 @@
 package com.carlossantana.TrelloApiTest.controllers;
 
+import com.carlossantana.TrelloApiTest.CalcPontuation;
 import com.carlossantana.TrelloApiTest.UserService;
 import com.carlossantana.TrelloApiTest.models.Developer;
 import com.carlossantana.TrelloApiTest.models.User;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +21,8 @@ public class UserController {
 //    public UserController(UserService userService) {
 //        this.userService = userService;
 //    }
+
+    CalcPontuation calc = new CalcPontuation();
 
     static List<User> userList = new ArrayList<User>();
     User loggedUser;
@@ -49,6 +55,7 @@ public class UserController {
 //        userService.getUserInfo(loggedUser);
 //        return "usuário logado " + loggedUser;
 //    }
+
     
     @GetMapping("/logout")
     public String logoutUser() {
@@ -65,7 +72,7 @@ public class UserController {
 
     //Tentativa de login
     @GetMapping("/login")
-    public String getUser(@RequestBody User user) {
+    public String getUser(@RequestBody Developer user) {
         loggedUser = userService.getLoggedUser(user, userList);
         return userService.checkUser(user, userList);
     }
@@ -75,4 +82,14 @@ public class UserController {
         return loggedUser;
     }
 
+    @GetMapping("/points")
+    public String getLastTaskPoint() {
+        HttpResponse<JsonNode> response = Unirest.get("https://api.trello.com/1/list/" + AppConfig.idListDone + "/cards")
+                .queryString("key", loggedUser.getKey())
+                .queryString("token", loggedUser.getToken())
+                .asJson();
+
+        return response.getBody().getArray().getJSONObject("labels");
+
+    }
 }
