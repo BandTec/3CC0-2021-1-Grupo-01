@@ -96,7 +96,6 @@ public class UserController {
         List<Double> cards = new ArrayList<>();
         for (Object json : response.getBody().getArray()) {
             JSONObject jsonCard = (JSONObject) json;
-            System.out.println(jsonCard);
             cards.add(loggedUser.getTaskPontuation(jsonCard));
         }
 

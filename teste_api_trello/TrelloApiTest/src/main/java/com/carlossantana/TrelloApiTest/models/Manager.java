@@ -40,25 +40,27 @@ public class Manager extends User{
                         if (labelJson.get("name").equals("Alta Urgência")
                                 && labelJson.get("color").equals("red")) {
                             urgencyAxis = 3;
-                        } else if (labelJson.get("name").equals("Expert")
-                                && labelJson.get("color").equals("red")){
-                            difficultyAxis = 3;
                         } else if (labelJson.get("name").equals("Urgente")
                                 && labelJson.get("color").equals("orange")) {
                             urgencyAxis = 2;
-                        } else if (labelJson.get("name").equals("Difícil")
-                                && labelJson.get("color").equals("orange")){
-                            difficultyAxis = 2;
-                        } else if (labelJson.get("name").equals("Média Urgência")
+                        }else if (labelJson.get("name").equals("Média Urgência")
                                 && labelJson.get("color").equals("yellow")) {
                             urgencyAxis = 1;
-                        } else if (labelJson.get("name").equals("Médio")
-                                && labelJson.get("color").equals("yellow")){
-                            difficultyAxis = 1;
-                        } else if (labelJson.get("name").equals("Pouca Urgência")
+                        }else if (labelJson.get("name").equals("Pouca Urgência")
                                 && labelJson.get("color").equals("green")) {
                             urgencyAxis = 0;
-                        } else if (labelJson.get("name").equals("Fácil")
+                        }
+
+                        if (labelJson.get("name").equals("Expert")
+                                && labelJson.get("color").equals("red")){
+                            difficultyAxis = 3;
+                        }else if (labelJson.get("name").equals("Difícil")
+                                && labelJson.get("color").equals("orange")){
+                            difficultyAxis = 2;
+                        }else if (labelJson.get("name").equals("Médio")
+                                && labelJson.get("color").equals("yellow")){
+                            difficultyAxis = 1;
+                        }else if (labelJson.get("name").equals("Fácil")
                                 && labelJson.get("color").equals("green")){
                             difficultyAxis = 0;
                         }
