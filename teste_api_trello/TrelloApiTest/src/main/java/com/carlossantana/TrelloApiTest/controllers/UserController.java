@@ -44,9 +44,9 @@ public class UserController {
 //        userList.add(new User("312", "54353"));
 //        userList.add(new User("2222", "111111"));
         //Tentativa de um login
-        userList.add(new Developer("1239120", "vicentin123", "Victor Vicente",
+        userList.add(new Developer("60268a6905173d7ef67ae867", "vicentin123", "Victor Vicente",
                 "123", "321"));
-        userList.add(new Manager("128939", "carlos1234", "Carlos Santana",
+        userList.add(new Manager("60288b1a7a611413aebb1ee4", "carlos1234", "Carlos Santana",
                 "carlos@123.com", "12345"));
     }
 
@@ -96,6 +96,7 @@ public class UserController {
         List<Double> cards = new ArrayList<>();
         for (Object json : response.getBody().getArray()) {
             JSONObject jsonCard = (JSONObject) json;
+            System.out.println(jsonCard);
             cards.add(loggedUser.getTaskPontuation(jsonCard));
         }
 
